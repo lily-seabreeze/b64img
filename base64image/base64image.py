@@ -53,8 +53,12 @@ class Base64Image(object):
 
         """
 
-        data_uri = ("data:image/%s;base64,%s"
-                    % (self.image_format, self.base64_image_string))
+        if type(self.base64_image_string) is bytes:
+            content = self.base64_image_string.decode()
+        else:
+            content = self.base64_image_string
+
+        data_uri = ("data:image/%s;base64,%s" % (self.image_format, content))
         return data_uri
 
     @staticmethod
